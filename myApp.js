@@ -11,10 +11,7 @@ app.use(function(req, res, next) {
 })
 
 // middleware bodyparser that parses post request
-app.use((res, res, next) => {
-    bodyParser.urlencoded({extended: false});
-    next();
-});
+app.use(bodyParser.urlencoded({extended: false}));
 
 app.get("/", (req, res) => res.sendFile(__dirname + "/views/index.html"));
 
