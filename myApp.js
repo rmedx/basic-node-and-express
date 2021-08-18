@@ -1,5 +1,6 @@
 var express = require('express');
 var app = express();
+var bodyParser = require('body-parser');
 require('dotenv').config();
 console.log("Hello World");
 
@@ -8,6 +9,12 @@ app.use(function(req, res, next) {
     console.log(req.method + " " + req.path + " - " + req.ip);
     next();
 })
+
+// middleware bodyparser that parses post request
+app.use((res, res, next) => {
+    bodyParser.urlencoded({extended: false});
+    next();
+});
 
 app.get("/", (req, res) => res.sendFile(__dirname + "/views/index.html"));
 
@@ -33,8 +40,7 @@ app.get("/now", function(req, res, next) {
 
 app.get("/:word/echo", (req, res) => res.send({echo: req.params.word}))
 
-app.get("/name", (req, res) => res.send({name: req.query.first + " " + req.query.last}))
-
+app.get("/name", (req, res) => res.send({ name: req.query.first + " " + req.query.last }))
 
 
 
